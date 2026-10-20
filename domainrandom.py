@@ -74,12 +74,10 @@ class SensorDegradationWrapper(gym.ObservationWrapper):
 
 class DomainRandomizationWrapper(gym.Wrapper):
     """
-    Κάθε φορά που γίνεται reset, επιλέγεται τυχαία:
+    
       - degradation_type: none / noise / dropout / stuck
       - severity: uniform από [severity_min, severity_max]
 
-    Αυτό αναγκάζει τον agent να μάθει robust policy
-    που δουλεύει υπό οποιαδήποτε συνθήκη.
     """
 
     def __init__(self, env, severity_min=0.0, severity_max=0.8,
@@ -92,7 +90,7 @@ class DomainRandomizationWrapper(gym.Wrapper):
         # Τύποι που θα χρησιμοποιηθούν κατά training
         self.types = ["noise", "dropout", "stuck"]
         if include_clean:
-            # 30% clean episodes για να μην ξεχάσει το clean task
+            # 40% clean episodes για να μην ξεχάσει το  task
             self.types += ["none", "none"]
 
         self._obs_dim    = env.observation_space["observation"].shape[0]
